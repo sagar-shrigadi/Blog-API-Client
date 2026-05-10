@@ -1,14 +1,12 @@
+import { Nav } from "./nav/Nav";
+
 export const Header = () => {
   return (
-    <header className="mx-auto flex justify-center text-2xl w-5xl py-2.5">
+    <header className="mx-auto flex justify-center text-xl w-full py-1 px-2 lg:text-2xl lg:w-5xl lg:py-2.5 ">
       <a href="/" className="mr-auto">
         My Blog
       </a>
-
-      <nav className="flex gap-10">
-        <a href="">Login</a>
-        <a href="">Sign Up</a>
-      </nav>
+      <Nav />
     </header>
   );
 };
