@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer>
+    <footer className="justify-self-end">
       <p className="flex justify-center items-center gap-1 py-2.5 text-lg">
         &copy; {new Date().getFullYear()}
         <a
