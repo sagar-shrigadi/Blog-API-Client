@@ -1,5 +1,6 @@
 import App from "./src/App";
 import { Index } from "./src/components/Pages/Index/Index";
+import { Login } from "./src/components/Pages/Login/Login";
 import { Post } from "./src/components/Pages/Post/Post";
 
 const routes = [
@@ -9,6 +10,7 @@ const routes = [
     children: [
       { index: true, element: <Index /> },
       { path: "/:postId", element: <Post /> },
+      { path: "/login", element: <Login /> },
     ],
   },
 ];
