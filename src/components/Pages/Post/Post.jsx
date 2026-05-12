@@ -3,6 +3,8 @@ import { useParams } from "react-router";
 import { DateOptions } from "../../PostCard/DateOptions";
 import { FetchLoading } from "../../FetchLoading/FetchLoading";
 import { FetchError } from "../../FetchError/FetchError";
+import { BackBtn } from "../../BackBtn/BackBtn";
+import { CommentCard } from "../../CommentCard/CommentCard";
 
 const usePostById = (postId) => {
   const [post, setPost] = useState(null);
@@ -39,23 +41,20 @@ export const Post = () => {
   if (error) return <FetchError />;
 
   return (
-    <section className="mx-auto mt-8 flex flex-col justify-start w-full min-h-1/2 py-1 px-3 lg:text-2xl lg:w-5xl lg:py-2.5">
+    <section className="grow mx-auto mt-8 flex flex-col justify-start w-full min-h-1/2 py-1 px-3 lg:text-2xl lg:w-5xl lg:py-2.5">
+      <BackBtn />
       <p className="self-end mb-4">
-        {new Date(post.createdAt).toLocaleDateString("en-Gb", DateOptions)}
+        {new Date(post.createdAt).toLocaleDateString("en-GB", DateOptions)}
       </p>
       <h1 className="text-4xl text-balance mb-6">{post.title}</h1>
       <p className="text-lg text-pretty">{post.content}</p>
 
       <div className="comments">
-        <h2>Comments</h2>
+        <h2 className="text-4xl text-balance mt-10 mb-4 pb-4 border-b-2">
+          Comments
+        </h2>
         {post.comments.map((comment) => {
-          <article key={comment.id}>
-            <div>
-              <h3>{comment.authorName}</h3>
-              <p>{comment.createdAt}</p>
-            </div>
-            <p>{comment.message}</p>
-          </article>;
+          <CommentCard key={comment.id} comment={comment} />;
         })}
       </div>
     </section>
