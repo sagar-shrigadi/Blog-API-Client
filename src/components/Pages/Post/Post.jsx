@@ -50,12 +50,17 @@ export const Post = () => {
       <p className="text-lg text-pretty">{post.content}</p>
 
       <div className="comments">
-        <h2 className="text-4xl text-balance mt-10 mb-4 pb-4 border-b-2">
-          Comments
-        </h2>
-        {post.comments.map((comment) => {
-          <CommentCard key={comment.id} comment={comment} />;
-        })}
+        <div>
+          <h2 className="text-3xl lg:text-4xl text-balance mt-10 pb-2 border-b-2">
+            Comments
+          </h2>
+          <button></button>
+        </div>
+        <section className="flex flex-col gap-6">
+          {post.comments.map((comment) => (
+            <CommentCard key={comment.id} comment={comment} />
+          ))}
+        </section>
       </div>
     </section>
   );
