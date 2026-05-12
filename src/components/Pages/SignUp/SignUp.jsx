@@ -1,54 +1,51 @@
 import { useState } from "react";
-import { Link, useOutletContext } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Form } from "../../Forms/Form";
 import { SectionWrapper } from "../../Forms/SectionWrapper";
 
-async function loginUser(credentials) {
+async function signUpUser(credentials) {
   try {
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("http://localhost:3000/sign-up", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(credentials),
     });
-    const data = await response.json();
+    const userInfo = await response.json();
 
     if (response.ok) {
       // console.log("User Login response", data);
-      return data.token;
+      return userInfo;
     }
   } catch (error) {
     console.error("Login Error", error.msg);
   }
 }
-
-export const Login = () => {
+export const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setToken } = useOutletContext();
+  let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userToken = await loginUser({ username, password });
-    console.log("token", userToken);
-    setToken(userToken);
-    // localStorage.setItem("token", userToken);
+    const userInfo = await signUpUser({ username, password });
+    console.log("User Sign-Up", userInfo);
+    navigate("/");
   };
-
   return (
     <SectionWrapper>
-      <h1 className="text-4xl text-balance">Please Log In! </h1>
+      <h1 className="text-4xl text-balance">Please Sign Up</h1>
       <Form
         handleSubmit={handleSubmit}
         setUsername={setUsername}
         setPassword={setPassword}
-        btnText="Login"
+        btnText="Sign Up"
       />
       <p className="lg:text-xl">
-        Don't have an account?{" "}
-        <Link to="/signup" className="text-blue-800">
-          Sign Up
+        Already have an account?{" "}
+        <Link to="/login" className="text-blue-800">
+          Login
         </Link>
       </p>
     </SectionWrapper>
