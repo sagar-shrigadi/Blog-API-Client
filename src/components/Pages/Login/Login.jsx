@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useOutletContext } from "react-router";
+import { Link, useLocation, useNavigate, useOutletContext } from "react-router";
 import { Form } from "../../Forms/Form";
 import { SectionWrapper } from "../../Forms/SectionWrapper";
 
@@ -14,12 +14,15 @@ async function loginUser(credentials) {
     });
     const data = await response.json();
 
-    if (response.ok) {
+    if (!response.ok) {
+      console.error("Login Error", data.msg);
+      throw Error(`${data.msg}`);
+    } else {
       // console.log("User Login response", data);
       return data.token;
     }
   } catch (error) {
-    console.error("Login Error", error.msg);
+    console.error("Login", error);
   }
 }
 
@@ -27,13 +30,18 @@ export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setToken } = useOutletContext();
+  const location = useLocation();
+  let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userToken = await loginUser({ username, password });
     console.log("token", userToken);
+
+    localStorage.setItem("token", userToken);
     setToken(userToken);
-    // localStorage.setItem("token", userToken);
+    const redirectTo = location.state?.from || "/";
+    navigate(redirectTo, { replace: true });
   };
 
   return (
