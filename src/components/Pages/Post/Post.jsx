@@ -190,7 +190,11 @@ export const Post = () => {
         <section className="flex flex-col gap-6">
           {post.comments.length > 0 ? (
             post.comments.map((comment) => (
-              <CommentCard key={comment.id} comment={comment} />
+              <CommentCard
+                key={comment.id}
+                comment={comment}
+                setRefreshToggle={setRefreshToggle}
+              />
             ))
           ) : (
             <div className="grid place-items-center">
