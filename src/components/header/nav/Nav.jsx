@@ -1,16 +1,60 @@
-import { Link } from "react-router";
+import { jwtDecode } from "jwt-decode";
+import { Link, useNavigate } from "react-router";
 
-export const Nav = () => {
+function getUserInfoFromToken(token) {
+  let decoded;
+  try {
+    if (token !== null) {
+      decoded = jwtDecode(`${token}`);
+      console.log("decoded token", decoded);
+      return decoded;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Token Decode", error);
+    return error;
+  }
+}
+
+export const Nav = ({ token, setToken }) => {
+  console.log("token", token);
+  let navigate = useNavigate();
+
+  const userInfo = getUserInfoFromToken(token);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    navigate("/login");
+  };
   return (
     <nav>
-      <ul className="flex gap-5">
-        <li>
-          <Link to="login">Login</Link>
-        </li>
-        <li>
-          <Link to="signup">Sign Up</Link>
-        </li>
-      </ul>
+      {userInfo ? (
+        <ul>
+          <li className="flex justify-center items-center gap-4">
+            {userInfo.id}
+            <button onClick={handleLogout}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                className="w-7"
+              >
+                {/* !Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc. */}
+                <path d="M569 337C578.4 327.6 578.4 312.4 569 303.1L425 159C418.1 152.1 407.8 150.1 398.8 153.8C389.8 157.5 384 166.3 384 176L384 256L272 256C245.5 256 224 277.5 224 304L224 336C224 362.5 245.5 384 272 384L384 384L384 464C384 473.7 389.8 482.5 398.8 486.2C407.8 489.9 418.1 487.9 425 481L569 337zM224 160C241.7 160 256 145.7 256 128C256 110.3 241.7 96 224 96L160 96C107 96 64 139 64 192L64 448C64 501 107 544 160 544L224 544C241.7 544 256 529.7 256 512C256 494.3 241.7 480 224 480L160 480C142.3 480 128 465.7 128 448L128 192C128 174.3 142.3 160 160 160L224 160z" />
+              </svg>
+            </button>
+          </li>
+        </ul>
+      ) : (
+        <ul className="flex gap-5">
+          <li>
+            <Link to="login">Login</Link>
+          </li>
+          <li>
+            <Link to="signup">Sign Up</Link>
+          </li>
+        </ul>
+      )}
     </nav>
   );
 };

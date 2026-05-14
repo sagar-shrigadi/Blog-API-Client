@@ -10,7 +10,7 @@ function App() {
   );
   return (
     <>
-      <Header />
+      <Header token={token} setToken={setToken} />
       <Outlet context={{ token, setToken }} />
       <Footer />
     </>
