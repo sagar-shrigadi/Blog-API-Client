@@ -187,7 +187,7 @@ export const Post = () => {
             </form>
           </div>
         </div>
-        <section className="flex flex-col gap-6">
+        <section className="flex flex-col gap-6 mb-8">
           {post.comments.length > 0 ? (
             post.comments.map((comment) => (
               <CommentCard

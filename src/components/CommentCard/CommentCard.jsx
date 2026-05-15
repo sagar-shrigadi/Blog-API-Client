@@ -1,5 +1,5 @@
-import { jwtDecode } from "jwt-decode";
 import { useOutletContext } from "react-router";
+import { getUserInfoFromToken } from "../../../service/helperFunc/useToken";
 
 async function deleteComment(token, commentId) {
   try {
@@ -27,19 +27,11 @@ async function deleteComment(token, commentId) {
 
 export const CommentCard = ({ comment, setRefreshToggle }) => {
   const { token } = useOutletContext();
+  // console.log("token value", token);
   const uniqueAnchorName = `--btn-${comment.id}`;
   const uniquePopoverId = `--moreActions-${comment.id}`;
-  let decoded;
-  try {
-    if (token) {
-      decoded = jwtDecode(token);
-      console.log("decoded token", decoded);
-    } else {
-      return;
-    }
-  } catch (error) {
-    console.error("Token Decode", error);
-  }
+
+  const userInfo = getUserInfoFromToken(token);
 
   const handleCommentDelete = async (e, commentId) => {
     e.preventDefault();
@@ -55,7 +47,7 @@ export const CommentCard = ({ comment, setRefreshToggle }) => {
     }
   };
   return (
-    <article className="flex flex-col gap-2 border rounded px-4 py-2">
+    <article className="flex flex-col gap-2 border rounded px-2 py-1 md:px-4">
       <div className="flex justify-between items-center">
         <div className="flex items-center justify-center gap-4">
           <h3 className="text-xl md:text-2xl font-bold">
@@ -69,7 +61,7 @@ export const CommentCard = ({ comment, setRefreshToggle }) => {
             })}
           </p>
         </div>
-        {decoded?.id === comment.authorId ? (
+        {userInfo?.id === comment.authorId ? (
           <button
             popoverTarget={uniquePopoverId}
             style={{ anchorName: uniqueAnchorName }}
@@ -78,7 +70,7 @@ export const CommentCard = ({ comment, setRefreshToggle }) => {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 640 640"
-              className="w-6"
+              className="w-4 md:w-5"
             >
               {/* !Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc. */}
               <path d="M320 208C289.1 208 264 182.9 264 152C264 121.1 289.1 96 320 96C350.9 96 376 121.1 376 152C376 182.9 350.9 208 320 208zM320 432C350.9 432 376 457.1 376 488C376 518.9 350.9 544 320 544C289.1 544 264 518.9 264 488C264 457.1 289.1 432 320 432zM376 320C376 350.9 350.9 376 320 376C289.1 376 264 350.9 264 320C264 289.1 289.1 264 320 264C350.9 264 376 289.1 376 320z" />
@@ -91,7 +83,7 @@ export const CommentCard = ({ comment, setRefreshToggle }) => {
           popover="auto"
           id={uniquePopoverId}
           style={{ positionAnchor: uniqueAnchorName }}
-          className="absolute [position-area:top_left] m-0 mb-4 min-h-25 bg-white px-4 py-2 border rounded shadow-md text-xl"
+          className="absolute [position-area:top_left] m-0 mb-4 min-h-15 bg-white px-6 py-3 border rounded shadow-md text-xl"
         >
           <form
             onSubmit={(e) => handleCommentDelete(e, comment.id)}

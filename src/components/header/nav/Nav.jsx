@@ -1,27 +1,12 @@
-import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router";
-
-function getUserInfoFromToken(token) {
-  let decoded;
-  try {
-    if (token !== null) {
-      decoded = jwtDecode(`${token}`);
-      console.log("decoded token", decoded);
-      return decoded;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error("Token Decode", error);
-    return error;
-  }
-}
+import { getUserInfoFromToken } from "../../../../service/helperFunc/useToken";
 
 export const Nav = ({ token, setToken }) => {
-  console.log("token", token);
+  // console.log("token", token);
   let navigate = useNavigate();
 
   const userInfo = getUserInfoFromToken(token);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
@@ -31,7 +16,7 @@ export const Nav = ({ token, setToken }) => {
     <nav>
       {userInfo ? (
         <ul>
-          <li className="flex justify-center items-center gap-4">
+          <li className="flex justify-center items-center gap-2">
             {userInfo.id}
             <button onClick={handleLogout}>
               <svg
