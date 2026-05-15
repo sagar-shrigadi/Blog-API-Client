@@ -13,7 +13,7 @@ export const Index = () => {
       <h1 className="text-4xl text-balance">My Blogs</h1>
       <section className="grid gap-x-12 gap-y-8 lg:gap-y-16 grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))]">
         {allPosts.map((post) => (
-          <Link to={`/${post.id}`} key={post.id}>
+          <Link to={`posts/${post.id}`} key={post.id}>
             <PostCard post={post} />
           </Link>
         ))}
