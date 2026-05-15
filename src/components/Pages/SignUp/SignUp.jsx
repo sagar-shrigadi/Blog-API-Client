@@ -2,26 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Form } from "../../Forms/Form";
 import { SectionWrapper } from "../../Forms/SectionWrapper";
+import { signUpUser } from "../../../../service/req/user/Sign-Up";
 
-async function signUpUser(credentials) {
-  try {
-    const response = await fetch("http://localhost:3000/sign-up", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
-    const userInfo = await response.json();
-
-    if (response.ok) {
-      // console.log("User Login response", data);
-      return userInfo;
-    }
-  } catch (error) {
-    console.error("Login Error", error.msg);
-  }
-}
 export const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +13,7 @@ export const SignUp = () => {
     e.preventDefault();
     const userInfo = await signUpUser({ username, password });
     console.log("User Sign-Up", userInfo);
-    navigate("/");
+    navigate("/login");
   };
   return (
     <SectionWrapper>

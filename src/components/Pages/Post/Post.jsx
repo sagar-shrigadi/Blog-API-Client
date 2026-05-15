@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   useLocation,
   useNavigate,
@@ -14,64 +14,8 @@ import { FetchError } from "../../FetchError/FetchError";
 import { BackBtn } from "../../BackBtn/BackBtn";
 import { CommentCard } from "../../CommentCard/CommentCard";
 import { DivWrapper } from "../../Forms/DivWrapper";
-
-const usePostById = (postId, refreshTrigger) => {
-  const [post, setPost] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchPostById = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/posts/${postId}`);
-        if (!response.ok) {
-          throw Error(`Error: ${response.status}`);
-        }
-        const json = await response.json();
-        console.log("Selected Post", json);
-        setPost(json.selectPost);
-      } catch (error) {
-        console.error("Fetch Post By Id Error: ", error);
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPostById();
-  }, [postId, refreshTrigger]);
-  return { post, loading, error };
-};
-
-async function postComment(token, postId, message) {
-  console.log("post id before sending post comments request", postId);
-  console.log("Message body before sending post comments request", message);
-  try {
-    const response = await fetch(
-      `http://localhost:3000/posts/${postId}/comments`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message }),
-      },
-    );
-    console.log("response from server", response);
-    const data = await response.json();
-    console.log("response after converting to json", data);
-
-    if (!response.ok) {
-      console.log("response error", data.msg);
-      throw Error(`${data.msg}`);
-    } else {
-      console.log("Post Comment response", data);
-      return data;
-    }
-  } catch (error) {
-    console.error("Post Comment", error);
-  }
-}
+import { usePostById } from "../../../../service/req/post/PostById";
+import { addComment } from "../../../../service/req/comment/AddComment";
 
 export const Post = () => {
   const { postId } = useParams();
@@ -92,7 +36,7 @@ export const Post = () => {
       });
     } else {
       try {
-        const response = await postComment(token, postId, message);
+        const response = await addComment(token, postId, message);
         console.log(response);
         setRefreshToggle((prev) => !prev);
         setMessage("");

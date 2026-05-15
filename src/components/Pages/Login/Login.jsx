@@ -2,29 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate, useOutletContext } from "react-router";
 import { Form } from "../../Forms/Form";
 import { SectionWrapper } from "../../Forms/SectionWrapper";
-
-async function loginUser(credentials) {
-  try {
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("Login Error", data.msg);
-      throw Error(`${data.msg}`);
-    } else {
-      // console.log("User Login response", data);
-      return data.token;
-    }
-  } catch (error) {
-    console.error("Login", error);
-  }
-}
+import { loginUser } from "../../../../service/req/user/Login";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -36,7 +14,6 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userToken = await loginUser({ username, password });
-    console.log("token", userToken);
 
     localStorage.setItem("token", userToken);
     setToken(userToken);
