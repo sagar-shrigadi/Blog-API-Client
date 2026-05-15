@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   useLocation,
   useNavigate,
@@ -23,6 +23,7 @@ export const Post = () => {
   const { post, error, loading } = usePostById(postId, refreshToggle);
   const { token } = useOutletContext();
   const [message, setMessage] = useState();
+  const popoverRef = useRef(null);
   let navigate = useNavigate();
   const location = useLocation();
 
@@ -40,9 +41,8 @@ export const Post = () => {
         console.log(response);
         setRefreshToggle((prev) => !prev);
         setMessage("");
-        const popoverTarget = document.getElementById("addCommentForm");
-        if (popoverTarget) {
-          popoverTarget.hidePopover();
+        if (popoverRef.current) {
+          popoverRef.current.hidePopover();
         }
       } catch (error) {
         console.error("New Comment Submision Error", error);
@@ -90,7 +90,8 @@ export const Post = () => {
           <div
             popover="auto"
             id="addCommentForm"
-            className="m-auto min-h-1/3 bg-gray-300 px-8 py-6  rounded-2xl"
+            ref={popoverRef}
+            className="m-auto min-h-1/3 bg-gray-300 px-8 pt-6 pb-12 rounded-xl"
           >
             <div className="flex flex-col justify-between items-center gap-2">
               <button
