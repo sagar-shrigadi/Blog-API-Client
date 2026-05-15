@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router";
-import { getUserInfoFromToken } from "../../../../service/helperFunc/useToken";
+import { getUserInfoFromToken } from "../../../../service/Helper/useToken";
 
 export const Nav = ({ token, setToken }) => {
   // console.log("token", token);

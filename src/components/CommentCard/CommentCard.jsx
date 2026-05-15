@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router";
-import { getUserInfoFromToken } from "../../../service/helperFunc/useToken";
+import { getUserInfoFromToken } from "../../../service/Helper/useToken";
+import { DateOptionsWEx, locales } from "../../../service/Helper/DateOptions";
 
 async function deleteComment(token, commentId) {
   try {
@@ -54,11 +55,10 @@ export const CommentCard = ({ comment, setRefreshToggle }) => {
             {comment.author.username}
           </h3>
           <p className="text-sm sm:text-base">
-            {new Date(comment.createdAt).toLocaleDateString("en-GB", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {new Date(comment.createdAt).toLocaleDateString(
+              locales,
+              DateOptionsWEx,
+            )}
           </p>
         </div>
         {userInfo?.id === comment.authorId ? (

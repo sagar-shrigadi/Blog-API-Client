@@ -5,7 +5,10 @@ import {
   useOutletContext,
   useParams,
 } from "react-router";
-import { DateOptions } from "../../PostCard/DateOptions";
+import {
+  DateOptionsWIn,
+  locales,
+} from "../../../../service/Helper/DateOptions";
 import { FetchLoading } from "../../FetchLoading/FetchLoading";
 import { FetchError } from "../../FetchError/FetchError";
 import { BackBtn } from "../../BackBtn/BackBtn";
@@ -113,7 +116,7 @@ export const Post = () => {
     <section className="grow mx-auto mt-8 flex flex-col justify-start w-full min-h-1/2 py-1 px-3 lg:text-2xl lg:w-5xl lg:py-2.5">
       <BackBtn />
       <p className="self-end mb-4">
-        {new Date(post.createdAt).toLocaleDateString("en-GB", DateOptions)}
+        {new Date(post.createdAt).toLocaleDateString(locales, DateOptionsWIn)}
       </p>
       <h1 className="text-4xl text-balance mb-6">{post.title}</h1>
       <p className="text-lg text-pretty">{post.content}</p>
