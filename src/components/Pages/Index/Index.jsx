@@ -2,7 +2,7 @@ import { PostCard } from "../../PostCard/PostCard";
 import { Link } from "react-router";
 import { FetchLoading } from "../../FetchLoading/FetchLoading";
 import { FetchError } from "../../FetchError/FetchError";
-import { usePublicPosts } from "../../../../service/req/post/PublicPosts";
+import { usePublicPosts } from "../../../service/post/PublicPosts";
 
 export const Index = () => {
   const { allPosts, loading, error } = usePublicPosts();

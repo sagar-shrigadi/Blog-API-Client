@@ -1,4 +1,4 @@
-import { DateOptionsWIn, locales } from "../../../service/Helper/DateOptions";
+import { DateOptionsWIn, locales } from "../../Helper/DateOptions";
 
 export const PostCard = ({ post }) => {
   return (
