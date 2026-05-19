@@ -6,10 +6,12 @@ export const PostCard = ({ post }) => {
       <p className="text-lg self-start mt-2 ">
         {new Date(post.createdAt).toLocaleDateString(locales, DateOptionsWIn)}
       </p>
-      <h2 className="text-3xl self-start">{post.title}</h2>
-      <p className="text-xl max-w-[35ch] line-clamp-5 text-pretty">
-        {post.content}
-      </p>
+      <h2 className="text-3xl self-start mb-2">{post.title}</h2>
+      <div className="@container min-w-full">
+        <p className="text-xl max-w-[35ch] sm:max-w-[70ch] line-clamp-5 text-pretty">
+          {post.content}
+        </p>
+      </div>
       <div className="mt-auto self-stretch flex justify-between items-center text-lg">
         <p className="flex justify-center items-center gap-2 ">
           <svg

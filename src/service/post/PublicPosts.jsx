@@ -15,7 +15,7 @@ export const usePublicPosts = () => {
         }
         const json = await response.json();
         console.log(`Json response log:`, json);
-        setAllPosts(json.allPosts);
+        setAllPosts(json.allPosts.filter((post) => post.published));
       } catch (error) {
         console.error("Fetch All Posts Error:", error);
         setError(error);
