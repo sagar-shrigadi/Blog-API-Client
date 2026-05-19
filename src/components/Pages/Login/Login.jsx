@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate, useOutletContext } from "react-router";
 import { Form } from "../../Forms/Form";
 import { SectionWrapper } from "../../Forms/SectionWrapper";
-import { loginUser } from "../../../../service/req/user/Login";
+import { loginUser } from "../../../service/user/Login";
 
 export const Login = () => {
   const [username, setUsername] = useState("");

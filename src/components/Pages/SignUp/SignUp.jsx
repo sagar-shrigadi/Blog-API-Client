@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Form } from "../../Forms/Form";
 import { SectionWrapper } from "../../Forms/SectionWrapper";
-import { signUpUser } from "../../../../service/req/user/Sign-Up";
+import { signUpUser } from "../../../service/user/Sign-Up";
 
 export const SignUp = () => {
   const [username, setUsername] = useState("");

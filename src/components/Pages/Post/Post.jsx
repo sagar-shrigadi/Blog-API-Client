@@ -5,17 +5,15 @@ import {
   useOutletContext,
   useParams,
 } from "react-router";
-import {
-  DateOptionsWIn,
-  locales,
-} from "../../../../service/Helper/DateOptions";
+
 import { FetchLoading } from "../../FetchLoading/FetchLoading";
 import { FetchError } from "../../FetchError/FetchError";
 import { BackBtn } from "../../BackBtn/BackBtn";
 import { CommentCard } from "../../CommentCard/CommentCard";
 import { DivWrapper } from "../../Forms/DivWrapper";
-import { usePostById } from "../../../../service/req/post/PostById";
-import { addComment } from "../../../../service/req/comment/AddComment";
+import { usePostById } from "../../../service/post/PostById";
+import { addComment } from "../../../service/comment/AddComment";
+import { DateOptionsWIn, locales } from "../../../Helper/DateOptions";
 
 export const Post = () => {
   const { postId } = useParams();
