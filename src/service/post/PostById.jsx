@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { baseUrl } from "../baseUrl";
 
 export const usePostById = (postId, refreshTrigger) => {
   const [post, setPost] = useState(null);
@@ -8,7 +9,7 @@ export const usePostById = (postId, refreshTrigger) => {
   useEffect(() => {
     const fetchPostById = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/posts/${postId}`);
+        const response = await fetch(`${baseUrl}/posts/${postId}`);
         if (!response.ok) {
           throw Error(`Error: ${response.status}`);
         }

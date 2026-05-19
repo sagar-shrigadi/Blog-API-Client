@@ -1,9 +1,10 @@
 import { getUserInfoFromToken } from "../../Helper/useToken";
+import { baseUrl } from "../baseUrl";
 
 export const getUserById = async (token) => {
   const decoded = getUserInfoFromToken(token);
   try {
-    const response = await fetch(`http://localhost:3000/me/${decoded.id}`, {
+    const response = await fetch(`${baseUrl}/me/${decoded.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,6 +1,8 @@
+import { baseUrl } from "../baseUrl";
+
 export const signUpUser = async (credentials) => {
   try {
-    const response = await fetch("http://localhost:3000/sign-up", {
+    const response = await fetch(`${baseUrl}/sign-up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
