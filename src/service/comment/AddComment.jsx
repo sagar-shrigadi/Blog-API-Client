@@ -14,17 +14,17 @@ export const addComment = async (token, postId, message) => {
       },
     );
     console.log("response from server", response);
-    const data = await response.json();
-    console.log("response after converting to json", data);
 
     if (!response.ok) {
-      console.log("response error", data.msg);
-      throw Error(`${data.msg}`);
+      console.error("add comment response error", response.status);
+      throw new Error(`Some error occurred! Please try again!`);
     } else {
-      console.log("Post Comment response", data);
+      const data = await response.json();
+      console.log("add comment response after converting to json", data);
       return data;
     }
   } catch (error) {
-    console.error("Post Comment", error);
+    console.error(error);
+    throw error;
   }
 };

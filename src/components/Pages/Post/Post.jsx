@@ -14,11 +14,13 @@ import { DivWrapper } from "../../Forms/DivWrapper";
 import { usePostById } from "../../../service/post/PostById";
 import { addComment } from "../../../service/comment/AddComment";
 import { DateOptionsWIn, locales } from "../../../Helper/DateOptions";
+import { ReqErr } from "../../ReqErr/ReqErr";
 
 export const Post = () => {
   const { postId } = useParams();
   const [refreshToggle, setRefreshToggle] = useState(false);
   const { post, error, loading } = usePostById(postId, refreshToggle);
+  const [Error, setError] = useState(null);
   const { token } = useOutletContext();
   const [message, setMessage] = useState();
   const popoverRef = useRef(null);
@@ -44,6 +46,7 @@ export const Post = () => {
         }
       } catch (error) {
         console.error("New Comment Submision Error", error);
+        setError(error.message || "An unexpected error occurred!");
       }
     }
   };
@@ -109,8 +112,9 @@ export const Post = () => {
               </button>
               <h2 className="text-2xl self-start mb-3">Add Comment</h2>
             </div>
+            {Error && <ReqErr>{Error}</ReqErr>}
             <form
-              className="grow flex flex-col justify-between gap-8"
+              className="grow flex flex-col justify-between gap-8 mt-4"
               onSubmit={commentHandleSubmit}
             >
               <DivWrapper>

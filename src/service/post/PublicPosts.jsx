@@ -12,7 +12,7 @@ export const usePublicPosts = () => {
           `${import.meta.env.VITE_SERVER_URL}/posts`,
         );
         if (!response.ok) {
-          throw Error(`Error: ${response.status}`);
+          throw new Error(`Error: ${response.status}`);
         }
         const json = await response.json();
         console.log(`Json response log:`, json);

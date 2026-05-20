@@ -3,21 +3,34 @@ import { Link, useNavigate } from "react-router";
 import { Form } from "../../Forms/Form";
 import { SectionWrapper } from "../../Forms/SectionWrapper";
 import { signUpUser } from "../../../service/user/Sign-Up";
+import { ReqErr } from "../../ReqErr/ReqErr";
 
 export const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [Error, setError] = useState(null);
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userInfo = await signUpUser({ username, password });
-    console.log("User Sign-Up", userInfo);
-    navigate("/login");
+    try {
+      if (!username || !password) {
+        console.log("before sending req", { username, password });
+
+        const userInfo = await signUpUser({ username, password });
+        console.log("User Sign-Up", userInfo);
+        navigate("/login");
+      } else {
+        setError("Username or Password cannot be empty!");
+      }
+    } catch (error) {
+      setError(error.message || "An unexpected error occurred!");
+    }
   };
   return (
     <SectionWrapper>
       <h1 className="text-4xl text-balance">Please Sign Up</h1>
+      {Error && <ReqErr>{Error}</ReqErr>}
       <Form
         handleSubmit={handleSubmit}
         setUsername={setUsername}

@@ -7,16 +7,19 @@ export const loginUser = async (credentials) => {
       },
       body: JSON.stringify(credentials),
     });
-    const data = await response.json();
-
     if (!response.ok) {
-      console.error("Login Error", data.msg);
-      throw Error(`${data.msg}`);
+      console.error("Login Error", response.status);
+      if (response.status === 400) {
+        throw new Error(`Invalid Crendentials!`);
+      }
+      throw new Error(`Server responded with status ${response.status}`);
     } else {
-      // console.log("User Login response", data);
+      const data = await response.json();
+      // console.log("User Login response converting to json", data);
       return data.token;
     }
   } catch (error) {
-    console.error("Login", error);
+    console.error("some error", error);
+    throw error;
   }
 };

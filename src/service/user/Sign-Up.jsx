@@ -7,13 +7,19 @@ export const signUpUser = async (credentials) => {
       },
       body: JSON.stringify(credentials),
     });
-    const userInfo = await response.json();
 
-    if (response.ok) {
-      // console.log("User Login response", data);
+    if (!response.ok) {
+      console.error("Sign Up Error", response.status);
+      if (response.status === 400) {
+        throw new Error(`Input fields must not be empty!`);
+      }
+    } else {
+      const userInfo = await response.json();
+      // console.log("User Sign up response after converting to json", data);
       return userInfo;
     }
   } catch (error) {
-    console.error("Login Error", error.msg);
+    console.error(error);
+    throw error;
   }
 };

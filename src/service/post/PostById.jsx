@@ -12,7 +12,7 @@ export const usePostById = (postId, refreshTrigger) => {
           `${import.meta.env.VITE_SERVER_URL}/posts/${postId}`,
         );
         if (!response.ok) {
-          throw Error(`Error: ${response.status}`);
+          throw new Error(`Error: ${response.status}`);
         }
         const json = await response.json();
         console.log("Selected Post", json);
