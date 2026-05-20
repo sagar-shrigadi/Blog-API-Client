@@ -1,14 +1,16 @@
 import { getUserInfoFromToken } from "../../Helper/useToken";
-import { baseUrl } from "../baseUrl";
 
 export const getUserById = async (token) => {
   const decoded = getUserInfoFromToken(token);
   try {
-    const response = await fetch(`${baseUrl}/me/${decoded.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/me/${decoded.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
     console.log("user info response using id from decoded token", response);
 
     if (!response.ok) {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { baseUrl } from "../baseUrl";
 
 export const usePublicPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -9,7 +8,9 @@ export const usePublicPosts = () => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       try {
-        const response = await fetch(`${baseUrl}/posts`);
+        const response = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/posts`,
+        );
         if (!response.ok) {
           throw Error(`Error: ${response.status}`);
         }

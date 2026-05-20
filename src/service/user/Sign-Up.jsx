@@ -1,8 +1,6 @@
-import { baseUrl } from "../baseUrl";
-
 export const signUpUser = async (credentials) => {
   try {
-    const response = await fetch(`${baseUrl}/sign-up`, {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/sign-up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

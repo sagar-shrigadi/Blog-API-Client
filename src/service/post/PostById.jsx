@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { baseUrl } from "../baseUrl";
 
 export const usePostById = (postId, refreshTrigger) => {
   const [post, setPost] = useState(null);
@@ -9,7 +8,9 @@ export const usePostById = (postId, refreshTrigger) => {
   useEffect(() => {
     const fetchPostById = async () => {
       try {
-        const response = await fetch(`${baseUrl}/posts/${postId}`);
+        const response = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/posts/${postId}`,
+        );
         if (!response.ok) {
           throw Error(`Error: ${response.status}`);
         }
