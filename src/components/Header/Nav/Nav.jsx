@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router";
 export const Nav = ({ setToken, user, setUser }) => {
   let navigate = useNavigate();
 
-  console.log("user from app", user);
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);

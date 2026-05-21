@@ -11,7 +11,6 @@ export const getUserById = async (token) => {
         },
       },
     );
-    console.log("user info response using id from decoded token", response);
 
     if (!response.ok) {
       const status = response.status;
@@ -33,10 +32,6 @@ export const getUserById = async (token) => {
       }
     }
     const data = await response.json();
-    console.log(
-      "json converted user info from server using decoded token",
-      data,
-    );
     return data;
   } catch (error) {
     console.error("error getting user data using /me/:userId", error);

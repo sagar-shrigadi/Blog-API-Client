@@ -15,7 +15,6 @@ export const usePostById = (postId, refreshTrigger) => {
           throw new Error(`Error: ${response.status}`);
         }
         const json = await response.json();
-        console.log("Selected Post", json);
         setPost(json.selectPost);
       } catch (error) {
         console.error("Fetch Post By Id Error: ", error);

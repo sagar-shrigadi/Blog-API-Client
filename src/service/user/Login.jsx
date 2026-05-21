@@ -15,7 +15,6 @@ export const loginUser = async (credentials) => {
       throw new Error(`Server responded with status ${response.status}`);
     } else {
       const data = await response.json();
-      // console.log("User Login response converting to json", data);
       return data.token;
     }
   } catch (error) {

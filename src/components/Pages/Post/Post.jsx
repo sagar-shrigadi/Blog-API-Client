@@ -29,7 +29,6 @@ export const Post = () => {
 
   const commentHandleSubmit = async (e) => {
     e.preventDefault();
-    console.log("User token", token);
     if (!token) {
       navigate("/login", {
         replace: true,
@@ -37,8 +36,7 @@ export const Post = () => {
       });
     } else {
       try {
-        const response = await addComment(token, postId, message);
-        console.log(response);
+        await addComment(token, postId, message);
         setRefreshToggle((prev) => !prev);
         setMessage("");
         if (popoverRef.current) {

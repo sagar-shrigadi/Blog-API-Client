@@ -16,10 +16,6 @@ function App() {
       try {
         if (token !== null) {
           const getUser = await getUserById(token);
-          console.log(
-            "user info returned from server using token decoded id",
-            getUser,
-          );
           setUser(getUser.user);
         }
       } catch {
@@ -30,7 +26,6 @@ function App() {
     };
     fetchUser();
   }, [token]);
-  console.log("user info after useEffect", user);
 
   return (
     <>

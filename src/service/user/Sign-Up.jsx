@@ -15,7 +15,6 @@ export const signUpUser = async (credentials) => {
       }
     } else {
       const userInfo = await response.json();
-      // console.log("User Sign up response after converting to json", data);
       return userInfo;
     }
   } catch (error) {

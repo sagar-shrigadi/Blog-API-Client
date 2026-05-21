@@ -23,7 +23,6 @@ export const Login = () => {
       const redirectTo = location.state?.from || "/";
       navigate(redirectTo, { replace: true });
     } catch (error) {
-      // console.log("error when before setting to state", error);
       setError(error.message || "An unexpected error occurred!");
     }
   };

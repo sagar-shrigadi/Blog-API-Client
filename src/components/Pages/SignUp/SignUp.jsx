@@ -15,10 +15,7 @@ export const SignUp = () => {
     e.preventDefault();
     try {
       if (!username || !password) {
-        console.log("before sending req", { username, password });
-
-        const userInfo = await signUpUser({ username, password });
-        console.log("User Sign-Up", userInfo);
+        await signUpUser({ username, password });
         navigate("/login");
       } else {
         setError("Username or Password cannot be empty!");
