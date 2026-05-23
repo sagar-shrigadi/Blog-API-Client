@@ -1,17 +1,16 @@
 import { DateOptionsWIn, locales } from "../../Helper/DateOptions";
-
+import DOMPurify from "dompurify";
 export const PostCard = ({ post }) => {
   return (
-    <article className="min-h-100 border flex flex-col gap-4 items-center rounded-2xl px-6 py-4 cursor-pointer">
+    <article className="min-h-130 border flex flex-col gap-4 items-center rounded-2xl px-6 py-4 cursor-pointer">
       <p className="text-lg self-start mt-2 ">
         {new Date(post.createdAt).toLocaleDateString(locales, DateOptionsWIn)}
       </p>
       <h2 className="text-3xl self-start mb-2">{post.title}</h2>
-      <div className="@container min-w-full">
-        <p className="text-xl max-w-[35ch] sm:max-w-[70ch] line-clamp-5 text-pretty">
-          {post.content}
-        </p>
-      </div>
+      <article
+        className="text-lg text-pretty max-w-[35ch] line-clamp-5 prose prose-headings:my-1 prose-h2:mb-4 lg:prose-xl mx-auto"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+      ></article>
       <div className="mt-auto self-stretch flex justify-between items-center text-lg">
         <p className="flex justify-center items-center gap-2 ">
           <svg

@@ -5,7 +5,7 @@ import {
   useOutletContext,
   useParams,
 } from "react-router";
-
+import DOMPurify from "dompurify";
 import { FetchLoading } from "../../FetchLoading/FetchLoading";
 import { FetchError } from "../../FetchError/FetchError";
 import { BackBtn } from "../../BackBtn/BackBtn";
@@ -61,8 +61,16 @@ export const Post = () => {
       <p className="self-end mb-4">
         {new Date(post.createdAt).toLocaleDateString(locales, DateOptionsWIn)}
       </p>
-      <h1 className="text-4xl text-balance mb-6">{post.title}</h1>
-      <p className="text-lg text-pretty">{post.content}</p>
+      <h1 className="text-4xl text-balance mb-2 lg:mb-6">{post.title}</h1>
+      {/*
+      since react escapes string by default,
+      thus to show the actual html stored form tinyMCE editor as it is, 
+      we use the dangerouslySetInnerHTML attribute and once again just in case, use DOMPurify to sanitize content before serving 
+       */}
+      <article
+        className="text-lg text-pretty prose prose-headings:mt-0 prose-h2:mb-4 prose-p:mb-4 prose-ul:mb-2 lg:prose-xl mx-auto mt-4"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+      ></article>
 
       <div className="comments">
         <div className="flex justify-between items-center mt-10 mb-8 border-b-2">
